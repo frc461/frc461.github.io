@@ -1,0 +1,27 @@
+---
+title: Team History
+permalink: /histories/
+layout: default
+---
+<div class="container">
+  <div class="p-5 mb-4 bg-body-tertiary rounded-3">
+    <div class="container-fluid py-6">
+      <h2 class="display-6 fw-bold">Team History</h2>
+
+      <div class="row" style="margin-bottom: 15px">
+        {% for post in site.categories.histories %}
+          <div class="col-sm-4" style="margin-bottom: 15px">
+            <div class="card h-100">
+              <div class="card-body d-flex flex-column">
+                <h5 class="card-title">{{ post.title }}</h5>
+                <p class="card-text">{{ post.description }}</p>
+                <a href="{{ post.url }}" class="btn btn-primary mt-auto me-auto">Learn More</a>
+              </div>
+            </div>
+          </div>
+        {% endfor %}
+      </div>
+      
+    </div>
+  </div>
+</div>
