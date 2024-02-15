@@ -28,3 +28,12 @@ img{
 .card{
     margin: 0 .5em;
 }
+
+.pill-heading{
+    text-align: center;
+    text-overflow: clip;
+    display: inline-block;
+    font-size: 50px;
+    flex-direction: row;
+
+}
