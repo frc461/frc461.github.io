@@ -27,16 +27,12 @@
     }
 }
 
-}
-
-.news-article{
-    text-align: center;
-    text-overflow: clip;
-    display: inline-block;
-    font-size: 50px;
-    flex-direction: row;
-
 .carousel-inner .carousel-item-end,
 .carousel-inner .carousel-item-start { 
   transform: translateX(0);
+}
+
+.carousel-control-next-icon,
+.carousel-control-prev-icon {
+  filter: invert(1);
 }
