@@ -7,7 +7,7 @@ layout: default
 <div class="container">
   <div class="container-fluid py-6">
     <h2 class="display-6 fw-bold mt-5">Team History</h2>
-    <div class="mt-5 pt-5">
+    <div class="mt-5">
       <div class="row" style="margin-bottom: 15px;">
         {% for post in site.categories.histories %}
         <div class="col-sm-4" style="margin-bottom: 15px;">
@@ -33,42 +33,78 @@ layout: default
   ];
 
   function updateOpacity() {
+    var windowHeight = window.innerHeight;
+
     for (var i = 0; i < cardIds.length; i++) {
       var blogCard = document.getElementById(cardIds[i]);
       var cardImage = document.getElementById('cardImage' + (i + 1)); // Adjust the ID accordingly
       var cardTitle = document.getElementById('cardTitle' + (i + 1)); // Adjust the ID accordingly
       var cardDescription = document.getElementById('cardDescription' + (i + 1)); // Adjust the ID accordingly
       var learnMoreButton = document.getElementById('learnMore' + (i + 1)); // Adjust the ID accordingly
-      var windowHeight = window.innerHeight;
       var cardRect = blogCard.getBoundingClientRect();
       var cardCenter = cardRect.top + cardRect.height / 2;
 
       // Calculate the opacity based on the card's position relative to the center of the screen
       var opacity = Math.abs(windowHeight / 2 - cardCenter) / (windowHeight / 2);
 
-      // Apply the opacity to the card with 90% black
+      // Special case for the last card to have full opacity
+      if (i === cardIds.length - 1) {
+        opacity = 1;
+      }
+
+      // Apply the opacity to the card with 90% white
       blogCard.style.backgroundColor = 'rgba(255, 255, 255, ' + (0.6 * opacity).toFixed(2) + ')';
-      
+
       // Apply the opacity to the card image
       cardImage.style.opacity = (1 - opacity).toFixed(2);
-      
+
       // Apply the opacity to the card title
       cardTitle.style.opacity = (1 - opacity).toFixed(2);
-      
+
       // Apply the opacity to the card description
       cardDescription.style.opacity = (1 - opacity).toFixed(2);
-      
+
       // Apply the opacity to the Learn More button
       learnMoreButton.style.opacity = (1 - opacity).toFixed(2);
     }
   }
 
+  function centerClosestCard() {
+    var currentScroll = window.scrollY;
+    var closestCardIndex = findClosestCardIndex(currentScroll);
+    var closestCard = document.getElementById(cardIds[closestCardIndex]);
+    var cardCenter = closestCard.getBoundingClientRect().top + closestCard.offsetHeight / 2;
+    var offset = cardCenter - window.innerHeight / 2;
+
+    window.scrollTo({
+      top: currentScroll + offset,
+      behavior: 'smooth'
+    });
+  }
+
+  function findClosestCardIndex(scrollPosition) {
+    var distances = cardIds.map(function (id) {
+      return Math.abs(document.getElementById(id).offsetTop - scrollPosition);
+    });
+
+    return distances.indexOf(Math.min.apply(null, distances));
+  }
+
+  var isScrolling; // Variable to check if the user is currently scrolling
+
   window.addEventListener('scroll', function () {
     updateOpacity();
+
+    // Set a timeout to clear the isScrolling variable after scrolling stops
+    clearTimeout(isScrolling);
+    isScrolling = setTimeout(function () {
+      centerClosestCard();
+    }, 200); // Adjust the time (in milliseconds) as needed
   });
 
-  // Initial call to apply the opacity effect when the page is first loaded
+  // Initial call to apply the opacity effect and center the closest card when the page is first loaded
   window.addEventListener('load', function () {
     updateOpacity();
+    centerClosestCard();
   });
 </script>
