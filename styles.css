@@ -54,3 +54,6 @@
 .page-wrapper{
   font-family: 'open sans', monospace;
 }
+.site-header, .footer-format{
+  background-color: #FFD500;
+}
