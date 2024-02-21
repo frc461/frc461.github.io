@@ -6,16 +6,17 @@ layout: default
 
 <div class="container">
   <div class="container-fluid py-6">
-    <h2 class="display-6 fw-bold">Team History</h2>
-    <div class="mt-5">
+    <h2 class="display-6 fw-bold mt-5">Team History</h2>
+    <div class="mt-5 pt-5">
       <div class="row" style="margin-bottom: 15px;">
         {% for post in site.categories.histories %}
         <div class="col-sm-4" style="margin-bottom: 15px;">
-          <div class="card h-100">
+          <div class="blog-post-card card h-100" id="blogCard{{ forloop.index }}">
             <div class="card-body d-flex flex-column">
-              <h5 class="card-title">{{ post.title }}</h5>
-              <p class="card-text">{{ post.description }}</p>
-              <a href="{{ post.url }}" class="btn btn-primary mt-auto me-auto">Learn More</a>
+              <img src="{{ post.image }}" class="card-img-top" id="cardImage{{ forloop.index }}" alt="{{ post.title }}" style="max-width: 100%;">
+              <h5 class="card-title" id="cardTitle{{ forloop.index }}">{{ post.title }}</h5>
+              <p class="card-text" id="cardDescription{{ forloop.index }}">{{ post.description }}</p>
+              <a href="{{ post.url }}" class="btn btn-primary mt-auto me-auto" id="learnMore{{ forloop.index }}">Learn More</a>
             </div>
           </div>
         </div>
@@ -24,3 +25,50 @@ layout: default
     </div>
   </div>
 </div>
+<script>
+  var cardIds = [
+    {% for post in site.categories.histories %}
+      'blogCard{{ forloop.index }}',
+    {% endfor %}
+  ];
+
+  function updateOpacity() {
+    for (var i = 0; i < cardIds.length; i++) {
+      var blogCard = document.getElementById(cardIds[i]);
+      var cardImage = document.getElementById('cardImage' + (i + 1)); // Adjust the ID accordingly
+      var cardTitle = document.getElementById('cardTitle' + (i + 1)); // Adjust the ID accordingly
+      var cardDescription = document.getElementById('cardDescription' + (i + 1)); // Adjust the ID accordingly
+      var learnMoreButton = document.getElementById('learnMore' + (i + 1)); // Adjust the ID accordingly
+      var windowHeight = window.innerHeight;
+      var cardRect = blogCard.getBoundingClientRect();
+      var cardCenter = cardRect.top + cardRect.height / 2;
+
+      // Calculate the opacity based on the card's position relative to the center of the screen
+      var opacity = Math.abs(windowHeight / 2 - cardCenter) / (windowHeight / 2);
+
+      // Apply the opacity to the card with 90% black
+      blogCard.style.backgroundColor = 'rgba(255, 255, 255, ' + (0.6 * opacity).toFixed(2) + ')';
+      
+      // Apply the opacity to the card image
+      cardImage.style.opacity = (1 - opacity).toFixed(2);
+      
+      // Apply the opacity to the card title
+      cardTitle.style.opacity = (1 - opacity).toFixed(2);
+      
+      // Apply the opacity to the card description
+      cardDescription.style.opacity = (1 - opacity).toFixed(2);
+      
+      // Apply the opacity to the Learn More button
+      learnMoreButton.style.opacity = (1 - opacity).toFixed(2);
+    }
+  }
+
+  window.addEventListener('scroll', function () {
+    updateOpacity();
+  });
+
+  // Initial call to apply the opacity effect when the page is first loaded
+  window.addEventListener('load', function () {
+    updateOpacity();
+  });
+</script>
