@@ -16,7 +16,7 @@ permalink: /histories/
               <img src="{{ post.image }}" class="card-img-top" id="cardImage{{ forloop.index }}" alt="{{ post.title }}" style="max-width: 100%;">
               <h5 class="card-title" id="cardTitle{{ forloop.index }}">{{ post.title }}</h5>
               <p class="card-text" id="cardDescription{{ forloop.index }}">{{ post.description }}</p>
-              <a href="{{ post.url }}" class="btn btn-primary mt-auto me-auto" id="learnMore{{ forloop.index }}">Learn More</a>
+              <a href="{{ post.url }}" class="btn btn-primary mt-auto me-auto" id="learnMore{{ forloop.index }}" style="background-color: #CA2F29; border: none;">Learn More</a>
             </div>
           </div>
         </div>
@@ -25,6 +25,7 @@ permalink: /histories/
     </div>
   </div>
 </div>
+
 <script>
   var cardIds = [
     {% for post in site.categories.histories %}
