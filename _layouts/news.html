@@ -1,0 +1,25 @@
+--- 
+layout: default
+---
+
+<div class="container">
+
+    {% include breadcrumbs.html %}
+    <br>
+
+    <h2>{{ page.title }}</h2>
+
+    <div style="margin-bottom: 16px">
+            {{ page.description }}
+    </div>
+
+    <hr>
+
+    {{ content }}
+
+    <img src="{{ page.image }}"  alt="2015-team-img" style="max-width: 100%;">
+    <br>
+
+    <p>Published on {{ page.date }}</p>
+
+</div>
