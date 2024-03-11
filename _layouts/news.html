@@ -1,10 +1,20 @@
 ---
-title: Test News 5
-layout: news
-category: news
-image: /images/sand.png
-date: 11-03-2024
-pretty: March 5, 2024
-author: Eugene Zhang
+layout: default
 ---
-<p>This is still yet another test news article again.</p>
+
+<div class="container">
+
+    <br>
+    {% include breadcrumbs.html %}
+
+    <h2 class="display-6 fw-bold mt-5">{{ page.title }}</h2>
+    <p>Published on {{ page.pretty }} by {{ page.author }}</p>
+
+    <hr>
+
+    {{ content }}
+
+    <img src="{{ page.image }}"  alt="2015-team-img" style="max-width: 100%;">
+    <br>
+
+</div>
