@@ -57,3 +57,23 @@
 .site-header, .footer-format{
   background-color: #FFD500;
 }
+
+.crop-container {
+    height: 30px;
+    overflow: hidden;
+}
+
+.crop-container img {
+    margin-top: -10px;
+}
+
+.enlarge {
+    height: 30px;
+    transition: 0.3s;
+}
+
+.enlarge:hover {
+    height: 29px;
+    margin-right: 2.3px;
+    transition: 0.3s;
+}

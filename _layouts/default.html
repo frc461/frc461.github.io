@@ -14,18 +14,17 @@
   <body>
     <header class="site-header sticky-top" style="background-color: #FFD500">
       <nav class="navbar navbar-expand-lg sticky-top p-1">
-        <a class="navbar-brand px-2 text-primary" href="{{ site.url }}">
-          <img src="/images/newyellowlogo.png" alt="WBI logo" height="36px">
+        <a class="navbar-brand mx-2 text-primary" href="{{ site.url }}">
+          <div class="crop-container">
+            <img class="enlarge" src="/images/newyellowlogo.png" alt="WBI logo" height="30px">
+          </div>
         </a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarToggle" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
 
           <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-              <li class="nav-item">
-                <a class="nav-link" aria-current="page" href="{{ site.url }}">Home</a>
-              </li>
+            <ul class="navbar-nav me-auto my-1">
               <li class="nav-item">
                 <a class="nav-link" href="/about">About Us</a>
               </li>
@@ -39,7 +38,7 @@
                 <a class="nav-link" href="/resources">Resources</a>
               </li>
             </ul>
-            <ul class="navbar-nav mr-auto mb-2 mb-lg-0" style="margin-right: 15px;">
+            <ul class="navbar-nav mr-auto" style="margin-right: 15px;">
               <li class="nav-item">
                 <a class="nav-link" href="https://westside-robotics.info/" target="_blank">Learn More</a>
               </li>
