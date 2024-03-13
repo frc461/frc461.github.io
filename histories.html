@@ -43,13 +43,12 @@ permalink: /histories/
       var cardDescription = document.getElementById('cardDescription' + (i + 1)); // Adjust the ID accordingly
       var learnMoreButton = document.getElementById('learnMore' + (i + 1)); // Adjust the ID accordingly
       var cardRect = blogCard.getBoundingClientRect();
-      var cardCenter = cardRect.top + cardRect.height / 2;
 
       var opacity = 1;
       // Calculate the opacity based on the card's position relative to the center of the screen
-      if (i !== findClosestCardIndex(window.scrollY)) {
+      if (i !== findClosestCardArray()[0]) {
         opacity = 0.5;
-        if ((i - 1) === findClosestCardIndex(window.scrollY) || (i - 2) === findClosestCardIndex(window.scrollY)) {
+        if ((i - 1) === findClosestCardArray()[0] || (i - 2) === findClosestCardArray()[0]) {
           opacity = 1;
         }
       }
@@ -73,24 +72,22 @@ permalink: /histories/
 
 
   function centerClosestCard() {
-    var currentScroll = window.scrollY;
-    var closestCardIndex = findClosestCardIndex(currentScroll);
-    var closestCard = document.getElementById(cardIds[closestCardIndex]);
-    var cardCenter = closestCard.getBoundingClientRect().top + closestCard.offsetHeight / 2;
-    var offset = cardCenter - window.innerHeight / 2;
+    var closestCardArray = findClosestCardArray();
+    var scrollToPos = window.scrollY - window.innerHeight / 2 + closestCardArray[1].getBoundingClientRect().top + closestCardArray[1].offsetHeight / 2;
 
     window.scrollTo({
-      top: currentScroll + offset,
+      top: scrollToPos,
       behavior: 'smooth'
     });
   }
 
-  function findClosestCardIndex(scrollPosition) {
+  function findClosestCardArray() {
     var distances = cardIds.map(function (id) {
       return Math.abs(document.getElementById(id).getBoundingClientRect().top + document.getElementById(id).offsetHeight / 2 - window.innerHeight / 2);
     });
-
-    return distances.indexOf(Math.min.apply(null, distances));
+    var index = distances.indexOf(Math.min.apply(null, distances));
+    var closestCard = document.getElementById(cardIds[index]);
+    return [index, closestCard];
   }
 
   var isScrolling; // Variable to check if the user is currently scrolling
