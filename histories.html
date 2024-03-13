@@ -26,85 +26,88 @@ permalink: /histories/
   </div>
 </div>
 
-<!--<script>-->
-<!--  var cardIds = [-->
-<!--    {% for post in site.categories.histories %}-->
-<!--      'blogCard{{ forloop.index }}',-->
-<!--    {% endfor %}-->
-<!--  ];-->
+<script>
+  var cardIds = [
+    {% for post in site.categories.histories %}
+  'blogCard{{ forloop.index }}',
+  {% endfor %}
+  ];
 
-<!--  function updateOpacity() {-->
-<!--  var windowHeight = window.innerHeight;-->
+  function updateOpacity() {
+    var windowHeight = window.innerHeight;
 
-<!--  for (var i = 0; i < cardIds.length; i++) {-->
-<!--    var blogCard = document.getElementById(cardIds[i]);-->
-<!--    var cardImage = document.getElementById('cardImage' + (i + 1)); // Adjust the ID accordingly-->
-<!--    var cardTitle = document.getElementById('cardTitle' + (i + 1)); // Adjust the ID accordingly-->
-<!--    var cardDescription = document.getElementById('cardDescription' + (i + 1)); // Adjust the ID accordingly-->
-<!--    var learnMoreButton = document.getElementById('learnMore' + (i + 1)); // Adjust the ID accordingly-->
-<!--    var cardRect = blogCard.getBoundingClientRect();-->
-<!--    var cardCenter = cardRect.top + cardRect.height / 2;-->
+    for (var i = 0; i < cardIds.length; i++) {
+      var blogCard = document.getElementById(cardIds[i]);
+      var cardImage = document.getElementById('cardImage' + (i + 1)); // Adjust the ID accordingly
+      var cardTitle = document.getElementById('cardTitle' + (i + 1)); // Adjust the ID accordingly
+      var cardDescription = document.getElementById('cardDescription' + (i + 1)); // Adjust the ID accordingly
+      var learnMoreButton = document.getElementById('learnMore' + (i + 1)); // Adjust the ID accordingly
+      var cardRect = blogCard.getBoundingClientRect();
+      var cardCenter = cardRect.top + cardRect.height / 2;
 
-<!--    // Calculate the opacity based on the card's position relative to the center of the screen-->
-<!--    var opacity = 1 - Math.abs(windowHeight / 2 - cardCenter) / (windowHeight / 2);-->
+      var opacity = 1;
+      // Calculate the opacity based on the card's position relative to the center of the screen
+      if (i !== findClosestCardIndex(window.scrollY)) {
+        opacity = 0.5;
+        if ((i - 1) === findClosestCardIndex(window.scrollY) || (i - 2) === findClosestCardIndex(window.scrollY)) {
+          opacity = 1;
+        }
+      }
 
-<!--    // Ensure opacity is not less than 0-->
-<!--    opacity = Math.max(opacity, 0);-->
+      // Apply the opacity to the card with 90% white
+      blogCard.style.backgroundColor = 'rgba(255, 255, 255, ' + (0.5 * opacity).toFixed(2) + ')';
 
-<!--    // Apply the opacity to the card with 90% white-->
-<!--    blogCard.style.backgroundColor = 'rgba(255, 255, 255, ' + (0.5 * opacity).toFixed(2) + ')';-->
+      // Apply the opacity to the card image
+      cardImage.style.opacity = opacity.toFixed(2);
 
-<!--    // Apply the opacity to the card image-->
-<!--    cardImage.style.opacity = opacity.toFixed(2);-->
+      // Apply the opacity to the card title
+      cardTitle.style.opacity = opacity.toFixed(2);
 
-<!--    // Apply the opacity to the card title-->
-<!--    cardTitle.style.opacity = opacity.toFixed(2);-->
+      // Apply the opacity to the card description
+      cardDescription.style.opacity = opacity.toFixed(2);
 
-<!--    // Apply the opacity to the card description-->
-<!--    cardDescription.style.opacity = opacity.toFixed(2);-->
-
-<!--    // Apply the opacity to the Learn More button-->
-<!--    learnMoreButton.style.opacity = opacity.toFixed(2);-->
-<!--  }-->
-<!--}-->
+      // Apply the opacity to the Learn More button
+      learnMoreButton.style.opacity = opacity.toFixed(2);
+    }
+  }
 
 
-<!--  function centerClosestCard() {-->
-<!--    var currentScroll = window.scrollY;-->
-<!--    var closestCardIndex = findClosestCardIndex(currentScroll);-->
-<!--    var closestCard = document.getElementById(cardIds[closestCardIndex]);-->
-<!--    var cardCenter = closestCard.getBoundingClientRect().top + closestCard.offsetHeight / 2;-->
-<!--    var offset = cardCenter - window.innerHeight / 2;-->
+  function centerClosestCard() {
+    var currentScroll = window.scrollY;
+    var closestCardIndex = findClosestCardIndex(currentScroll);
+    var closestCard = document.getElementById(cardIds[closestCardIndex]);
+    var cardCenter = closestCard.getBoundingClientRect().top + closestCard.offsetHeight / 2;
+    var offset = cardCenter - window.innerHeight / 2;
 
-<!--    window.scrollTo({-->
-<!--      top: currentScroll + offset,-->
-<!--      behavior: 'smooth'-->
-<!--    });-->
-<!--  }-->
+    window.scrollTo({
+      top: currentScroll + offset,
+      behavior: 'smooth'
+    });
+  }
 
-<!--  function findClosestCardIndex(scrollPosition) {-->
-<!--    var distances = cardIds.map(function (id) {-->
-<!--      return Math.abs(document.getElementById(id).offsetTop - scrollPosition);-->
-<!--    });-->
+  function findClosestCardIndex(scrollPosition) {
+    var distances = cardIds.map(function (id) {
+      return Math.abs(document.getElementById(id).getBoundingClientRect().top + document.getElementById(id).offsetHeight / 2 - window.innerHeight / 2);
+    });
 
-<!--    return distances.indexOf(Math.min.apply(null, distances));-->
-<!--  }-->
+    return distances.indexOf(Math.min.apply(null, distances));
+  }
 
-<!--  var isScrolling; // Variable to check if the user is currently scrolling-->
+  var isScrolling; // Variable to check if the user is currently scrolling
 
-<!--  window.addEventListener('scroll', function () {-->
-<!--    updateOpacity();-->
+  window.addEventListener('scroll', function () {
+    updateOpacity();
 
-<!--    // Set a timeout to clear the isScrolling variable after scrolling stops-->
-<!--    clearTimeout(isScrolling);-->
-<!--    isScrolling = setTimeout(function () {-->
-<!--      centerClosestCard();-->
-<!--    }, 200); // Adjust the time (in milliseconds) as needed-->
-<!--  });-->
+    // Set a timeout to clear the isScrolling variable after scrolling stops
+    clearTimeout(isScrolling);
+    isScrolling = setTimeout(function () {
+      centerClosestCard();
+    }, 200); // Adjust the time (in milliseconds) as needed
+  });
 
-<!--  // Initial call to apply the opacity effect and center the closest card when the page is first loaded-->
-<!--  window.addEventListener('load', function () {-->
-<!--    updateOpacity();-->
-<!--    centerClosestCard();-->
-<!--  });-->
-<!--</script>-->
+  // Initial call to apply the opacity effect and center the closest card when the page is first loaded
+  window.addEventListener('load', function () {
+    updateOpacity();
+    centerClosestCard();
+  });
+</script>
