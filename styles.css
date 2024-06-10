@@ -113,3 +113,15 @@ body.dark-mode {
     background-color: rgb(var(--background-color));
     color: rgb(var(--text-on-bg));
 }
+
+/* DARK MODE TOGGLE */
+.dark-mode .dark-mode-toggle-dark {
+    display: none;
+}
+.light-mode .dark-mode-toggle-light {
+    display: none;
+}
+
+.dark-mode-toggle {
+    color: rgb(var(--text-on-color));
+}
