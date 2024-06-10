@@ -82,13 +82,34 @@
 /* COLORS */
 .site-header {
     background-color: rgba(var(--main-color), .9);
+    color: rgb(var(--text-on-color));
     backdrop-filter: blur(5px);
 }
 
 .footer-format {
     background-color: rgba(var(--main-color), 1);
+    color: rgb(var(--text-on-color));
 }
 
 body {
-    --main-color: 255, 213, 0
+    transition: all;
+}
+
+body.light-mode {
+    --main-color: 255, 213, 0;
+    --text-on-bg: 0, 0, 0;
+    --text-on-color: 0, 0, 0;
+    --background-color: 255, 255, 255;
+}
+
+body.dark-mode {
+    --main-color: 185, 160, 20;
+    --text-on-bg: 213, 213, 213;
+    --text-on-color: 0, 0, 0;
+    --background-color: 0, 0, 0;
+}
+
+.page-wrapper {
+    background-color: rgb(var(--background-color));
+    color: rgb(var(--text-on-bg));
 }
