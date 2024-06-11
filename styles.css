@@ -37,6 +37,10 @@
     filter: invert(1);
 }
 
+.carousel-item > div {
+    padding: 5px;
+}
+
 .bgimage {
     max-width: 100%;
     height: 45vw;
@@ -95,11 +99,18 @@ body {
     transition: all;
 }
 
+.card {
+    background-color: rgb(var(--background-color));
+    border-color: rgb(var(--border-on-bg));
+    color: rgb(var(--text-on-bg));
+}
+
 body.light-mode {
     --main-color: 255, 213, 0;
     --text-on-bg: 0, 0, 0;
     --text-on-color: 0, 0, 0;
     --background-color: 255, 255, 255;
+    --border-on-bg: 75, 75, 75;
 }
 
 body.dark-mode {
@@ -107,6 +118,7 @@ body.dark-mode {
     --text-on-bg: 213, 213, 213;
     --text-on-color: 0, 0, 0;
     --background-color: 0, 0, 0;
+    --border-on-bg: 120, 120, 120;
 }
 
 .page-wrapper {
