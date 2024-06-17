@@ -96,7 +96,7 @@
 }
 
 body {
-    transition: all;
+    background-color: rgb(var(--background-color));
 }
 
 .card {
