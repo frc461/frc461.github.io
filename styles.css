@@ -114,7 +114,7 @@ body.light-mode {
 }
 
 body.dark-mode {
-    --main-color: 185, 160, 20;
+    --main-color: 255, 213, 0;
     --text-on-bg: 213, 213, 213;
     --text-on-color: 0, 0, 0;
     --background-color: 0, 0, 0;
